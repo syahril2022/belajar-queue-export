@@ -17,5 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/sendmail', [EmailController::class,'sendEmail']);
+// Route::get('/sendmail', [EmailController::class,'sendEmail']);
 Route::get('/export', [EmailController::class,'export']);

@@ -3,15 +3,23 @@
 namespace App\Exports;
 
 use App\Models\Mahasiswa;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class SiswaExport implements FromCollection
+class SiswaExport implements FromQuery, WithChunkReading, ShouldQueue
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    use Exportable;
+
+    public function query()
     {
-        return Mahasiswa::all();
+        return Mahasiswa::query();
+    }
+
+    public function chunkSize(): int
+    {
+        return 10000;
     }
 }
